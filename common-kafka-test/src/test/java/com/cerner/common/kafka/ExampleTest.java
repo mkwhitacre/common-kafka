@@ -74,19 +74,19 @@ public class ExampleTest {
 
     topics.all().get();
 
-    producerProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, FoodSelfieHashTagSerializer.class.getName());
-    producerProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, FoodSelfieSerializer.class.getName());
+    producerProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, SelfieHashTagSerializer.class.getName());
+    producerProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, SelfieSerializer.class.getName());
     producerProps.put(ProducerConfig.ACKS_CONFIG, "-1");
-    producerProps.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, FoodSelfiePartitioner.class.getName());
+    producerProps.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, SelfiePartitioner.class.getName());
 
 
 
-    Producer<FoodSelfieHashTag, FoodSelfie> producer = new KafkaProducer<>(producerProps);
+    Producer<SelfieHashTag, Selfie> producer = new KafkaProducer<>(producerProps);
 
-    FoodSelfieHashTag hashTag = new FoodSelfieHashTag("#blessed");
-    FoodSelfie foodSelfie = new FoodSelfie("/img/avocado_toast_100.jpg");
+    SelfieHashTag hashTag = new SelfieHashTag("#blessed");
+    Selfie selfie = new Selfie("/img/avocado_toast_100.jpg");
 
-    ProducerRecord<FoodSelfieHashTag, FoodSelfie> record = new ProducerRecord<>(topicName, hashTag, foodSelfie);
+    ProducerRecord<SelfieHashTag, Selfie> record = new ProducerRecord<>(topicName, hashTag, selfie);
 
     Future<RecordMetadata> result = producer.send(record);
 
@@ -128,18 +128,18 @@ public class ExampleTest {
 
     topics.all().get();
 
-    producerProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, FoodSelfieHashTagSerializer.class.getName());
-    producerProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, FoodSelfieSerializer.class.getName());
+    producerProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, SelfieHashTagSerializer.class.getName());
+    producerProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, SelfieSerializer.class.getName());
     producerProps.put(ProducerConfig.ACKS_CONFIG, "-1");
-    producerProps.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, FoodSelfiePartitioner.class.getName());
+    producerProps.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, SelfiePartitioner.class.getName());
 
 
-    Producer<FoodSelfieHashTag, FoodSelfie> producer = new KafkaProducer<>(producerProps);
+    Producer<SelfieHashTag, Selfie> producer = new KafkaProducer<>(producerProps);
 
-    FoodSelfieHashTag hashTag = new FoodSelfieHashTag("#blessed");
-    FoodSelfie foodSelfie = new FoodSelfie("/img/avocado_toast_100.jpg");
+    SelfieHashTag hashTag = new SelfieHashTag("#blessed");
+    Selfie selfie = new Selfie("/img/avocado_toast_100.jpg");
 
-    ProducerRecord<FoodSelfieHashTag, FoodSelfie> producedRecord = new ProducerRecord<>(topicName, hashTag, foodSelfie);
+    ProducerRecord<SelfieHashTag, Selfie> producedRecord = new ProducerRecord<>(topicName, hashTag, selfie);
 
     Future<RecordMetadata> result = producer.send(producedRecord);
 
@@ -157,19 +157,19 @@ public class ExampleTest {
 
     Properties consumerProperties = harness.getConsumerProps();
 
-    consumerProperties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, FoodSelfieHashTagDeserializer.class.getName());
-    consumerProperties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, FoodSelfieDeserializer.class.getName());
+    consumerProperties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, SelfieHashTagDeserializer.class.getName());
+    consumerProperties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, SelfieDeserializer.class.getName());
     consumerProperties.put(ConsumerConfig.GROUP_ID_CONFIG, "adoringFans");
     consumerProperties.put(ConsumerConfig.PARTITION_ASSIGNMENT_STRATEGY_CONFIG, FairAssignor.class.getName());
 
-    Consumer<FoodSelfieHashTag, FoodSelfie> consumer = new KafkaConsumer<>(consumerProperties);
+    Consumer<SelfieHashTag, Selfie> consumer = new KafkaConsumer<>(consumerProperties);
 
     consumer.subscribe(Collections.singleton(topicName));
 
 
-    ConsumerRecords<FoodSelfieHashTag, FoodSelfie> records = consumer.poll(Duration.ofMillis(5000L));
+    ConsumerRecords<SelfieHashTag, Selfie> records = consumer.poll(Duration.ofMillis(5000L));
 
-    for(ConsumerRecord<FoodSelfieHashTag, FoodSelfie> record: records){
+    for(ConsumerRecord<SelfieHashTag, Selfie> record: records){
       System.out.println("Record Partition: " + record.partition() + " offset: " + record.offset());
     }
 

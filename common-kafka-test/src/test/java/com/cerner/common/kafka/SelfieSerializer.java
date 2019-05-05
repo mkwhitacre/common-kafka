@@ -1,6 +1,5 @@
 package com.cerner.common.kafka;
 
-import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
 
 import java.util.Map;
@@ -8,7 +7,7 @@ import java.util.Map;
 /**
  * Created by mw010351 on 5/3/19.
  */
-public class FoodSelfieHashTagDeserializer implements Deserializer<FoodSelfieHashTag> {
+public class SelfieSerializer implements Serializer<Selfie> {
 
   @Override
   public void configure(Map<String, ?> map, boolean b) {
@@ -16,8 +15,8 @@ public class FoodSelfieHashTagDeserializer implements Deserializer<FoodSelfieHas
   }
 
   @Override
-  public FoodSelfieHashTag deserialize(String s, byte[] bytes) {
-    return new FoodSelfieHashTag("#blessed");
+  public byte[] serialize(String s, Selfie selfie) {
+    return new byte[0];
   }
 
   @Override

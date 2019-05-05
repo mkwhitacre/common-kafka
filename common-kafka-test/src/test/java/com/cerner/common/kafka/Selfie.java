@@ -4,9 +4,9 @@ import org.apache.kafka.common.serialization.Serializer;
 
 import java.util.Map;
 
-public class FoodSelfie {
+public class Selfie {
 
-  public FoodSelfie(String filePath) {
+  public Selfie(String filePath) {
 
   }
 

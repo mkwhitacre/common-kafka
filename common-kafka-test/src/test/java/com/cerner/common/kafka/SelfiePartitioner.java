@@ -6,7 +6,7 @@ import org.apache.kafka.common.Cluster;
 import java.util.Map;
 
 
-public class FoodSelfiePartitioner implements Partitioner {
+public class SelfiePartitioner implements Partitioner {
   @Override
   public int partition(String topics, Object key, byte[] keyBytes, Object value, byte[] valueBytes, Cluster cluster) {
     return 0;
